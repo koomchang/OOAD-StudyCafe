@@ -1,20 +1,14 @@
+import controller.StudyCafeController;
+import controller.UserController;
 import model.User;
-import model.UserRole;
-import view.StudyCafeView;
-import view.UserView;
 
 public class Application {
 
     public static void main(String[] args) {
-        StudyCafeView studyCafeView = new StudyCafeView();
-        UserView userView = new UserView();
-        studyCafeView.start();
-        userView.askForUserName();
-        String userName = userView.inputUserName();
-        userView.askForUserRole();
-        UserRole userRole = userView.inputUserRole();
-        User user = new User(userName, userRole);
-        userView.printUser(user);
+        UserController userController = new UserController();
+        StudyCafeController studyCafeController = new StudyCafeController();
+        User user = userController.register();
+        studyCafeController.register(user);
 
 //        StudyCafe studyCafe = new StudyCafe("스터디카페1", 10);
 //        Seat seat = studyCafe.getSeats().get(0);
