@@ -1,30 +1,46 @@
 package model;
-import model.StudyCafe;
+
+import exception.SeatReservationException;
 
 public class Seat {
-    private int id; //스터디카페별 좌석 id
+
+    private final int seatNumber;
+    private User user;
     private boolean empty;
-    private StudyCafe studyCafe;
 
-    public void setId(int id) {
-        this.id = id;
+    public Seat(int seatNumber, User user) {
+        this.seatNumber = seatNumber;
+        this.user = user;
+        this.empty = user == null;
     }
 
-    public void setEmpty(boolean empty) {
-        this.empty = empty;
+    public int getSeatNumber() {
+        return seatNumber;
     }
 
-    public void setStudyCafe(StudyCafe studyCafe) {
-        this.studyCafe = studyCafe;
+    public User getUser() {
+        return user;
     }
 
-    public Seat(int id, boolean empty, StudyCafe studyCafe){
-        this.id = id;
-        this.empty = empty;
-        this.studyCafe = studyCafe;
+    public boolean isEmpty() {
+        return empty;
     }
 
-    public int getId() { return id; }
-    public boolean isEmpty() { return empty; }
-    public StudyCafe getStudyCafe() { return studyCafe;}
+    public void assignSeatToUser(User user) {
+        if (this.isEmpty()) {
+            this.user = user;
+            this.empty = false;
+        } else {
+            throw new SeatReservationException("이미 예약된 자리입니다.");
+        }
+    }
+
+    public void removeSeatFromUser(User user) {
+        if (this.user.equals(user)) {
+            this.user = null;
+            this.empty = true;
+        } else {
+            throw new SeatReservationException("예약하신 자리가 존재하지 않습니다.");
+        }
+    }
 }
