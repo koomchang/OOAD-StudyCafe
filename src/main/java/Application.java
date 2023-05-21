@@ -1,12 +1,14 @@
 import model.User;
 import model.UserRole;
+import view.StudyCafeView;
 import view.UserView;
 
 public class Application {
 
     public static void main(String[] args) {
+        StudyCafeView studyCafeView = new StudyCafeView();
         UserView userView = new UserView();
-        userView.start();
+        studyCafeView.start();
         userView.askForUserName();
         String userName = userView.inputUserName();
         userView.askForUserRole();

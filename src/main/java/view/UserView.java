@@ -10,10 +10,6 @@ public class UserView {
 
     private final Scanner sc = new Scanner(System.in);
 
-    public void start() {
-        System.out.println("스터디카페에 오신 것을 환영합니다!");
-    }
-
     public void askForUserName() {
         System.out.println("환영합니다! 본인의 이름을 입력해주세요.");
     }
