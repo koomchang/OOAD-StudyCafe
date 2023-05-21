@@ -1,6 +1,7 @@
 package model;
 
 public class User {
+
     private static int nextId = 1;
     private final int id;
     private final String name;
