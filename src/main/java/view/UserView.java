@@ -10,15 +10,15 @@ public class UserView {
 
     private final Scanner sc = new Scanner(System.in);
 
-    public void askForUserName() {
+    public void askForName() {
         System.out.println("환영합니다! 본인의 이름을 입력해주세요.");
     }
 
-    public void askForUserRole() {
+    public void askForRole() {
         System.out.println("본인의 역할을 입력해주세요. (1: 스터디카페 관리자, 2: 스터디카페 손님)");
     }
 
-    public void printUser(User user) {
+    public void printUserInfo(User user) {
         System.out.println("환영합니다! " + user.getName() + "님");
         if (user.isAdmin()) {
             System.out.println("관리자로 로그인하셨습니다.");
@@ -27,53 +27,31 @@ public class UserView {
         }
     }
 
-    public String inputUserName() {
-        boolean isUserNameValid = false;
-        String userName = null;
-        do {
-            userName = sc.nextLine();
-            try {
-                validateUserName(userName);
-                isUserNameValid = true;
-            } catch (UserNameException e) {
-                System.out.println(e.getMessage());
-            }
-        } while (!isUserNameValid);
-        return userName;
+    public String inputName() {
+        try {
+            String userName = sc.nextLine();
+            validateUserName(userName);
+            return userName;
+        } catch (UserNameException e) {
+            System.out.println(e.getMessage());
+            return inputName();
+        }
     }
 
-    public UserRole inputUserRole() {
-        boolean isUserRoleValid = false;
-        UserRole userRole = null;
-        int userRoleInput = 0;
-        do {
+    public UserRole inputRole() {
+        try {
             String userInput = sc.nextLine();
-            try {
-                validateUserRole(userInput);
-                userRoleInput = Integer.parseInt(userInput);
-                isUserRoleValid = true;
-            } catch (UserRoleException e) {
-                System.out.println(e.getMessage());
-            }
-        } while (!isUserRoleValid);
-        if (userRoleInput == 1) {
-            userRole = UserRole.ADMIN;
-        } else if (userRoleInput == 2) {
-            userRole = UserRole.BASIC;
+            validateUserRole(userInput);
+            int roleNumber = Integer.parseInt(userInput);
+            return UserRole.of(roleNumber);
+        } catch (UserRoleException e) {
+            System.out.println(e.getMessage());
+            return inputRole();
         }
-        return userRole;
     }
 
     public void validateUserRole(String userInput) {
         validateInputNumeric(userInput);
-        validateUserRoleValue(userInput);
-    }
-
-    public void validateUserRoleValue(String userInput) {
-        int userRole = Integer.parseInt(userInput);
-        if (userRole != 1 && userRole != 2) {
-            throw new UserRoleException("1 또는 2를 입력해주세요.");
-        }
     }
 
     public void validateInputNumeric(String userInput) {
