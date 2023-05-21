@@ -1,28 +1,42 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-import model.Seat;
-
 public class StudyCafe {
-    private static int nextId = 1;
-    private final int id;
-    private final String name;
-    private final int seatNumber;
-    private final List<Seat> seats;
 
-    public StudyCafe(String name, int seatNumber){
-        this.id = nextId++;
+    private final User admin;
+    private final String name;
+    private final int seatAmount;
+    private final Seats seats;
+
+    public StudyCafe(User admin, String name, int seatAmount) {
+        this.admin = admin;
         this.name = name;
-        this.seatNumber = seatNumber;
-        seats = new ArrayList<>();
-        for(int i=1; i<=seatNumber; i++){
-            seats.add(new Seat(i, true, this));
-        }
+        this.seatAmount = seatAmount;
+        this.seats = new Seats(seatAmount);
     }
 
-    public int getId() { return id; }
-    public String getName() { return name; }
-    public int getSeatNumber() { return seatNumber; }
-    public List<Seat> getSeats() { return seats; }
+    public User getAdmin() {
+        return admin;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getSeatAmount() {
+        return seatAmount;
+    }
+
+    public Seats getSeats() {
+        return seats;
+    }
+
+    public Seat reserve(int seatNumber, User user) {
+        Seat seat = seats.getSeatBySeatNumber(seatNumber);
+        seat.assignSeatToUser(user);
+        return seat;
+    }
+
+    public void leave(User user) {
+        seats.closeSeat(user);
+    }
 }
