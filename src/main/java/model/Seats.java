@@ -22,6 +22,13 @@ public class Seats {
                 .orElse(null);
     }
 
+    public Seat getSeatByUser(User user){
+        return seats.stream()
+                .filter(seat -> seat.getUser().equals(user))
+                .findFirst()
+                .orElseThrow(() -> new SeatReservationException("아직 좌석 예약을 하지 않으셨습니다"));
+    }
+
     //
     public void closeSeat(User user) {
         Seat closingSeat = seats.stream()
@@ -29,5 +36,9 @@ public class Seats {
                 .findFirst()
                 .orElseThrow(() -> new SeatReservationException("아직 좌석 예약을 하지 않으셨습니다"));
         closingSeat.removeSeatFromUser(user);
+    }
+
+    public boolean isSeatEmpty(int seatNumber){
+        return getSeatBySeatNumber(seatNumber).isEmpty();
     }
 }

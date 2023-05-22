@@ -1,5 +1,7 @@
 package model;
 
+import exception.SeatReservationException;
+
 public class StudyCafe {
 
     private final User admin;
@@ -34,6 +36,22 @@ public class StudyCafe {
         Seat seat = seats.getSeatBySeatNumber(seatNumber);
         seat.assignSeatToUser(user);
         return seat;
+    }
+
+    public Seat changeSeat(int newSeatNumber, User user) {
+        Seat originalSeat = seats.getSeatByUser(user);
+
+        if(originalSeat.getSeatNumber() == newSeatNumber){
+            throw new SeatReservationException("같은 자리를 선택하셨습니다.");
+        }
+        if(!seats.isSeatEmpty(newSeatNumber)){
+            throw new SeatReservationException("이미 예약된 자리입니다.");
+        }
+        seats.closeSeat(user);
+
+        Seat newSeat = seats.getSeatBySeatNumber(newSeatNumber);
+        newSeat.assignSeatToUser(user);
+        return newSeat;
     }
 
     public void leave(User user) {
