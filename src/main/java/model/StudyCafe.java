@@ -32,6 +32,10 @@ public class StudyCafe {
         return seats;
     }
 
+    public void showSeats() {
+        seats.showSeats();
+    }
+
     public Seat reserve(int seatNumber, User user) {
         Seat seat = seats.getSeatBySeatNumber(seatNumber);
         seat.assignSeatToUser(user);
@@ -57,4 +61,5 @@ public class StudyCafe {
     public void leave(User user) {
         seats.closeSeat(user);
     }
+
 }

@@ -9,6 +9,5 @@ public class Application {
         StudyCafeController studyCafeController = new StudyCafeController();
         User user = userController.register();
         studyCafeController.register(user);
-
     }
 }

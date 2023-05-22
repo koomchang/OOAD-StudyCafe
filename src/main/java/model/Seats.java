@@ -15,6 +15,10 @@ public class Seats {
                 .collect(Collectors.toList());
     }
 
+    public void showSeats() {
+        seats.forEach(Seat::showSeat);
+    }
+
     public Seat getSeatBySeatNumber(int seatNumber) {
         return seats.stream()
                 .filter(seat -> seat.getSeatNumber() == seatNumber)
@@ -22,17 +26,24 @@ public class Seats {
                 .orElse(null);
     }
 
-    public Seat getSeatByUser(User user){
+    public Seat getSeatByUser(User user) {
         return seats.stream()
-                .filter(seat -> seat.getUser().equals(user))
+                .filter(seat -> {
+                    User seatUser = seat.getUser();
+                    return seatUser != null && seatUser.equals(user);
+                })
                 .findFirst()
                 .orElseThrow(() -> new SeatReservationException("아직 좌석 예약을 하지 않으셨습니다"));
     }
 
+
     //
     public void closeSeat(User user) {
         Seat closingSeat = seats.stream()
-                .filter(seat -> seat.getUser().equals(user))
+                .filter(seat -> {
+                    User seatUser = seat.getUser();
+                    return seatUser != null && seatUser.equals(user);
+                })
                 .findFirst()
                 .orElseThrow(() -> new SeatReservationException("아직 좌석 예약을 하지 않으셨습니다"));
         closingSeat.removeSeatFromUser(user);
