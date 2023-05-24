@@ -1,5 +1,7 @@
 package view;
 
+import exception.StudyCafeNameException;
+import exception.UserRoleException;
 import model.StudyCafe;
 import model.StudyCafes;
 
@@ -23,9 +25,15 @@ public class StudyCafeView {
         System.out.println("스터디카페 이름을 입력해주세요.");
     }
 
-    // TODO: input validation
-    public String inputName() {
-        return sc.nextLine();
+    public String inputName() {//관리자가 새로운 카페 등록시 받는 Input
+        try{
+            String name = sc.nextLine();
+            validateName(name);
+            return name;
+        } catch(StudyCafeNameException e){
+            System.out.println(e.getMessage());
+            return inputName();
+        }
     }
 
     public void askForSeatAmount() {
@@ -37,15 +45,22 @@ public class StudyCafeView {
         StudyCafes.showStudyCafes();
     }
 
-    // TODO: input validation
-    public String inputCafeName() {
-        return sc.nextLine();
+    public String inputCafeName() {//일반 유저가 카페 예약시 받는 input
+        try{
+            String name = sc.nextLine();
+            validateCafeName(name);
+            return name;
+        } catch(StudyCafeNameException e){
+            System.out.println(e.getMessage());
+            return inputCafeName();
+        }
     }
 
     // TODO: input validation
     public int inputSeatAmount() {
         return sc.nextInt();
     }
+
 
     public void showSeatList(StudyCafe studyCafe){
         studyCafe.showSeats();
@@ -88,6 +103,28 @@ public class StudyCafeView {
 
     public void changeSeatComment(){
         System.out.println("\n좌석을 변경하셨습니다.\n");
+    }
+
+    //StudyCafe name validation
+    public void validateName(String name){//관리자가 새로운 카페 등록시 Input validate
+        validateExist(name);
+        validateAlreadyExist(name);
+    }
+
+    public void validateCafeName(String name){//일반 유저가 카페 예약시 input
+        validateExist(name);
+    }
+
+    public void validateExist(String name){
+        if(name.isEmpty()){
+            throw new StudyCafeNameException("스터디카페 이름은 공백일 수 없습니다.");
+        }
+    }
+
+    public void validateAlreadyExist(String name){
+        if(StudyCafes.getStudyCafe(name)!=null){
+            throw new StudyCafeNameException("이미 존재하는 카페 이름입니다.");
+        }
     }
 
 }
