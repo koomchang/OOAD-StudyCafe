@@ -28,8 +28,8 @@ public class StudyCafeController {
             String cafeName = studyCafeView.inputCafeName();
             studyCafe = StudyCafes.getStudyCafe(cafeName);
             studyCafeView.showSeatList(studyCafe);
-            studyCafeView.askForAction();
-            studyCafeView.inputAction();
+            studyCafeView.askForUserAction();
+            studyCafeView.inputUserAction();
             studyCafe.reserve(studyCafeView.inputSeatNumber(), user);
             studyCafeView.showSeatList(studyCafe);
             studyCafe.changeSeat(studyCafeView.inputSeatNumber(), user);

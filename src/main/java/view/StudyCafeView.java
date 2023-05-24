@@ -51,14 +51,28 @@ public class StudyCafeView {
         studyCafe.showSeats();
     }
 
-    public void askForAction(){
+    public void askForAdminAction(){
         System.out.println("원하시는 작업을 선택해주세요: ");
-        System.out.println("1. 좌석 예약: ");
+        System.out.println("1. 스터디카페 등록");
+        System.out.println("2. 로그아웃");
+    }
+
+    // TODO: input validation
+    public int inputAdminAction(){
+        return sc.nextInt();
+    }
+
+    public void askForUserAction(){
+        System.out.println("원하시는 작업을 선택해주세요: ");
+        System.out.println("1. 좌석 예약");
+        System.out.println("2. 좌석 변경");
+        System.out.println("3. 좌석 이용 종료");
+        System.out.println("4. 로그아웃");
         // TODO: 다른 작업 추가
     }
 
     // TODO: input validation
-    public int inputAction(){
+    public int inputUserAction(){
         return sc.nextInt();
     }
 
