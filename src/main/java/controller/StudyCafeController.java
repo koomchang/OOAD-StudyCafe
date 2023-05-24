@@ -1,6 +1,7 @@
 package controller;
 
 import model.StudyCafe;
+import model.StudyCafes;
 import model.User;
 import view.StudyCafeView;
 
@@ -16,12 +17,13 @@ public class StudyCafeController {
         if (user.isAdmin()) {
             studyCafeView.printRegister();
             studyCafeView.askForName();
-            studyCafeView.inputName();
+            String name = studyCafeView.inputName();
             studyCafeView.askForSeatAmount();
-            studyCafeView.inputSeatAmount();
-
-        // prototype: 코드 확인용
-        // TODO: 추후 수정 필요
+            int seatAmount = studyCafeView.inputSeatAmount();
+            StudyCafe studyCafe1 = new StudyCafe(user, name, seatAmount);
+            StudyCafes.addStudyCafe(studyCafe1);
+            // prototype: 코드 확인용
+            // TODO: 추후 수정 필요
         } else {
             studyCafeView.showCafeList();
             studyCafeView.inputCafeNumber();
