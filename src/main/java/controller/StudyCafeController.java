@@ -9,8 +9,7 @@ public class StudyCafeController {
 
     private final StudyCafeView studyCafeView = new StudyCafeView();
 
-    // TODO: studyCafe를 Seats 처럼 여러개 담을수 있 class 따로 구성?
-    private final StudyCafe studyCafe = new StudyCafe(null, "dasdas", 20);
+    private StudyCafe studyCafe;
     // 임의로 설정 해놓음
 
     public void register(User user) {
@@ -26,7 +25,8 @@ public class StudyCafeController {
             // TODO: 추후 수정 필요
         } else {
             studyCafeView.showCafeList();
-            studyCafeView.inputCafeNumber();
+            String cafeName = studyCafeView.inputCafeName();
+            studyCafe = StudyCafes.getStudyCafe(cafeName);
             studyCafeView.showSeatList(studyCafe);
             studyCafeView.askForAction();
             studyCafeView.inputAction();

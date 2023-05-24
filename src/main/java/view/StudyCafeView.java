@@ -1,8 +1,11 @@
 package view;
 
 import model.StudyCafe;
+import model.StudyCafes;
 
 import java.util.Scanner;
+
+import model.StudyCafes;
 
 public class StudyCafeView {
 
@@ -31,11 +34,12 @@ public class StudyCafeView {
 
     public void showCafeList() {
         System.out.println("스터디카페를 선택해주세요: ");
+        StudyCafes.showStudyCafes();
     }
 
     // TODO: input validation
-    public int inputCafeNumber() {
-        return sc.nextInt();
+    public String inputCafeName() {
+        return sc.nextLine();
     }
 
     // TODO: input validation

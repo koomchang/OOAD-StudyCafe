@@ -9,4 +9,17 @@ public class StudyCafes {
     public static void addStudyCafe(StudyCafe studyCafe) {
         studyCafes.add(studyCafe);
     }
+
+    public static void showStudyCafes() {
+        for (StudyCafe studyCafe : studyCafes) {
+            System.out.println(studyCafe.getName());
+        }
+    }
+
+    public static StudyCafe getStudyCafe(String name) {
+        return studyCafes.stream()
+                .filter(studyCafe -> studyCafe.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
 }

@@ -36,6 +36,7 @@ public class StudyCafe {
         seats.showSeats();
     }
 
+
     public Seat reserve(int seatNumber, User user) {
         Seat seat = seats.getSeatBySeatNumber(seatNumber);
         seat.assignSeatToUser(user);
