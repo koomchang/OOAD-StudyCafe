@@ -1,5 +1,6 @@
 package view;
 
+import exception.SeatNumberException;
 import exception.StudyCafeNameException;
 import exception.UserRoleException;
 import model.StudyCafe;
@@ -56,9 +57,15 @@ public class StudyCafeView {
         }
     }
 
-    // TODO: input validation
     public int inputSeatAmount() {
-        return sc.nextInt();
+        try{
+            String userInput = sc.nextLine();
+            validateSeatAmount(userInput);
+            return Integer.parseInt(userInput);
+        }catch (SeatNumberException e){
+            System.out.println(e.getMessage());
+            return inputSeatAmount();
+        }
     }
 
 
@@ -91,10 +98,16 @@ public class StudyCafeView {
         return sc.nextInt();
     }
 
-    // TODO: input validation
     public int inputSeatNumber(){
-        System.out.println("원하시는 좌석 번호를 입력해주세요: ");
-        return sc.nextInt();
+        try{
+            System.out.println("원하시는 좌석 번호를 입력해주세요.");
+            String userInput = sc.nextLine();
+            validateSeatNumber(userInput);
+            return Integer.parseInt(userInput);
+        }catch (SeatNumberException e){
+            System.out.println(e.getMessage());
+            return inputSeatAmount();
+        }
     }
 
     public void leaveComment(){
@@ -124,6 +137,23 @@ public class StudyCafeView {
     public void validateAlreadyExist(String name){
         if(StudyCafes.getStudyCafe(name)!=null){
             throw new StudyCafeNameException("이미 존재하는 카페 이름입니다.");
+        }
+    }
+
+    //Seat validation
+    public void validateSeatAmount(String userInput) {
+        validateInputNumeric(userInput);
+    }
+
+    public void validateSeatNumber(String userInput){
+        validateInputNumeric(userInput);
+    }
+
+    public void validateInputNumeric(String userInput) {
+        try {
+            Integer.parseInt(userInput);
+        } catch (NumberFormatException e) {
+            throw new SeatNumberException("숫자만 입력 가능합니다.");
         }
     }
 
