@@ -8,6 +8,7 @@ public enum UserRole {
 
     private final int roleNumber;
 
+
     UserRole(int roleNumber) {
         this.roleNumber = roleNumber;
     }

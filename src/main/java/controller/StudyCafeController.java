@@ -8,12 +8,16 @@ import view.StudyCafeView;
 public class StudyCafeController {
 
     private final StudyCafeView studyCafeView = new StudyCafeView();
-
     private StudyCafe studyCafe;
-    // 임의로 설정 해놓음
 
-    public void register(User user) {
-        if (user.isAdmin()) {
+    public void adminAction(User user) {
+        while (true) {
+            studyCafeView.askForAdminAction();
+            int adminAction = studyCafeView.inputAdminAction();
+            if(adminAction == 2){
+                user.logout();
+                return;
+            }
             studyCafeView.printRegister();
             studyCafeView.askForName();
             String name = studyCafeView.inputName();
@@ -23,7 +27,17 @@ public class StudyCafeController {
             StudyCafes.addStudyCafe(studyCafe1);
             // prototype: 코드 확인용
             // TODO: 추후 수정 필요
-        } else {
+        }
+    }
+
+    public void userAction(User user){
+        while(true){
+            studyCafeView.askForUserAction();
+            int userAction = studyCafeView.inputUserAction();
+            if(userAction == 4){
+                user.logout();
+                return;
+            }
             studyCafeView.showCafeList();
             String cafeName = studyCafeView.inputCafeName();
             studyCafe = StudyCafes.getStudyCafe(cafeName);
@@ -39,6 +53,7 @@ public class StudyCafeController {
             studyCafeView.leaveComment();
             studyCafeView.showSeatList(studyCafe);
         }
+
     }
 
 }

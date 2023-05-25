@@ -6,6 +6,7 @@ public class User {
 
     private final String name;
     private final UserRole role;
+    private boolean isLogin = false;
 
     public User(String name, UserRole role) {
         this.name = name;
@@ -18,6 +19,18 @@ public class User {
 
     public boolean isAdmin() {
         return role == UserRole.ADMIN;
+    }
+
+    public boolean isLogin() {
+    	return isLogin;
+    }
+
+    public void login() {
+    	isLogin = true;
+    }
+
+    public void logout() {
+    	isLogin = false;
     }
 
     @Override
