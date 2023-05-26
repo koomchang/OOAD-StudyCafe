@@ -27,6 +27,7 @@ public class UserController {
         userView.askForRole();
         UserRole userRole = userView.inputRole();
         User user = new User(userName, userRole);
+        Users.addUser(user);
         user.login();
         userView.printUserInfo(user);
         return user;
