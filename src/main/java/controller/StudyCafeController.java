@@ -1,5 +1,6 @@
 package controller;
 
+import exception.SeatReservationException;
 import model.StudyCafe;
 import model.StudyCafes;
 import model.User;
@@ -51,10 +52,9 @@ public class StudyCafeController {
                     break;
             }
             String cafeName = studyCafeView.inputCafeName();
-            try{
-                studyCafe = StudyCafes.getStudyCafe(cafeName);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            studyCafe = StudyCafes.getStudyCafe(cafeName);
+            if(studyCafe == null){
+                System.out.println("해당 이름의 스터디카페가 존재하지 않습니다.");
                 continue;
             }
 
@@ -63,11 +63,21 @@ public class StudyCafeController {
             switch(userAction){
                 case 1:
                     studyCafeView.showSeatList(studyCafe);
-                    studyCafe.reserve(studyCafeView.inputSeatNumber(), user);
+                    try{
+                        studyCafe.reserve(studyCafeView.inputSeatNumber(), user);
+                    } catch(SeatReservationException e){
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
                     break;
                 case 2:
                     studyCafeView.showSeatList(studyCafe);
-                    studyCafe.changeSeat(studyCafeView.inputSeatNumber(), user);
+                    try{
+                        studyCafe.changeSeat(studyCafeView.inputSeatNumber(), user);
+                    } catch(SeatReservationException e){
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
                     studyCafeView.changeSeatComment();
                     break;
                 case 3:

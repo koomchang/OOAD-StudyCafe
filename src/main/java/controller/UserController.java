@@ -18,6 +18,10 @@ public class UserController {
         userView.askForName();
         String name = userView.inputName();
         User user = Users.getUserByName(name);
+        if(user == null){
+            System.out.println("존재하지 않는 사용자입니다.");
+            return login();
+        }
         return user;
     }
 
