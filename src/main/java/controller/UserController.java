@@ -8,6 +8,11 @@ public class UserController {
 
     private final UserView userView = new UserView();
 
+    public int inputAction(){
+        userView.askForAction();
+        return userView.inputAction();
+    }
+
     public User login(){
         userView.askForName();
         String name = userView.inputName();

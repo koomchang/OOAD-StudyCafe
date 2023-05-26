@@ -33,6 +33,7 @@ public class User {
     	isLogin = false;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
