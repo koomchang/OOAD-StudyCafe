@@ -50,10 +50,16 @@ public class StudyCafeController {
                     studyCafeView.wrongInput();
                     break;
             }
+            String cafeName = studyCafeView.inputCafeName();
+            try{
+                studyCafe = StudyCafes.getStudyCafe(cafeName);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
+
             studyCafeView.askForUserAction();
             int userAction = studyCafeView.inputUserAction();
-            String cafeName = studyCafeView.inputCafeName();
-            studyCafe = StudyCafes.getStudyCafe(cafeName);
             switch(userAction){
                 case 1:
                     studyCafeView.showSeatList(studyCafe);
