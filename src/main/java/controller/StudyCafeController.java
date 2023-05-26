@@ -14,19 +14,23 @@ public class StudyCafeController {
         while (true) {
             studyCafeView.askForAdminAction();
             int adminAction = studyCafeView.inputAdminAction();
-            if(adminAction == 2){
-                user.logout();
-                return;
+            switch (adminAction) {
+                case 1:
+                    studyCafeView.printRegister();
+                    studyCafeView.askForName();
+                    String name = studyCafeView.inputName();
+                    studyCafeView.askForSeatAmount();
+                    int seatAmount = studyCafeView.inputSeatAmount();
+                    StudyCafe studyCafe = new StudyCafe(user, name, seatAmount);
+                    StudyCafes.addStudyCafe(studyCafe);
+                    break;
+                case 2:
+                    user.logout();
+                    return;
+                default:
+                    studyCafeView.wrongInput();
+                    break;
             }
-            studyCafeView.printRegister();
-            studyCafeView.askForName();
-            String name = studyCafeView.inputName();
-            studyCafeView.askForSeatAmount();
-            int seatAmount = studyCafeView.inputSeatAmount();
-            StudyCafe studyCafe1 = new StudyCafe(user, name, seatAmount);
-            StudyCafes.addStudyCafe(studyCafe1);
-            // prototype: 코드 확인용
-            // TODO: 추후 수정 필요
         }
     }
 
