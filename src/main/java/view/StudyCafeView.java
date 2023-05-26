@@ -79,9 +79,19 @@ public class StudyCafeView {
         System.out.println("2. 로그아웃");
     }
 
-    // TODO: input validation
+    public int inputAction(){
+        try{
+            String userInput = sc.nextLine();
+            validateInputNumeric(userInput);
+            return Integer.parseInt(userInput);
+        } catch(SeatNumberException e){
+            System.out.println(e.getMessage());
+            return inputAction();
+        }
+    }
+
     public int inputAdminAction(){
-        return sc.nextInt();
+        return inputAction();
     }
 
     public void askForInitialUserAction(){
@@ -90,8 +100,9 @@ public class StudyCafeView {
         System.out.println("2. 로그아웃");
     }
 
+
     public int inputInitialUserAction(){
-        return sc.nextInt();
+        return inputAction();
     }
 
     public void askForUserAction(){
@@ -102,9 +113,8 @@ public class StudyCafeView {
         System.out.println("4. 로그아웃");
     }
 
-    // TODO: input validation
     public int inputUserAction(){
-        return sc.nextInt();
+        return inputAction();
     }
 
     public int inputSeatNumber(){
