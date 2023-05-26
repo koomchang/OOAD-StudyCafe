@@ -31,27 +31,46 @@ public class StudyCafeController {
     }
 
     public void userAction(User user){
+        studyCafeView.start();
         while(true){
+            studyCafeView.askForInitialUserAction();
+            int initialUserAction = studyCafeView.inputInitialUserAction();
+            switch(initialUserAction){
+                case 1:
+                    studyCafeView.showCafeList();
+                    break;
+                case 2:
+                    user.logout();
+                    return;
+                default:
+                    studyCafeView.wrongInput();
+                    break;
+            }
             studyCafeView.askForUserAction();
             int userAction = studyCafeView.inputUserAction();
-            if(userAction == 4){
-                user.logout();
-                return;
-            }
-            studyCafeView.showCafeList();
             String cafeName = studyCafeView.inputCafeName();
             studyCafe = StudyCafes.getStudyCafe(cafeName);
-            studyCafeView.showSeatList(studyCafe);
-            studyCafeView.askForUserAction();
-            studyCafeView.inputUserAction();
-            studyCafe.reserve(studyCafeView.inputSeatNumber(), user);
-            studyCafeView.showSeatList(studyCafe);
-            studyCafe.changeSeat(studyCafeView.inputSeatNumber(), user);
-            studyCafeView.changeSeatComment();
-            studyCafeView.showSeatList(studyCafe);
-            studyCafe.leave(user);
-            studyCafeView.leaveComment();
-            studyCafeView.showSeatList(studyCafe);
+            switch(userAction){
+                case 1:
+                    studyCafeView.showSeatList(studyCafe);
+                    studyCafe.reserve(studyCafeView.inputSeatNumber(), user);
+                    break;
+                case 2:
+                    studyCafeView.showSeatList(studyCafe);
+                    studyCafe.changeSeat(studyCafeView.inputSeatNumber(), user);
+                    studyCafeView.changeSeatComment();
+                    break;
+                case 3:
+                    studyCafe.leave(user);
+                    studyCafeView.leaveComment();
+                    break;
+                case 4:
+                    user.logout();
+                    return;
+                default:
+                    studyCafeView.wrongInput();
+                    break;
+            }
         }
 
     }

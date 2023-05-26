@@ -84,13 +84,22 @@ public class StudyCafeView {
         return sc.nextInt();
     }
 
+    public void askForInitialUserAction(){
+        System.out.println("원하시는 작업을 선택해주세요: ");
+        System.out.println("1. 스터디카페 목록 보기");
+        System.out.println("2. 로그아웃");
+    }
+
+    public int inputInitialUserAction(){
+        return sc.nextInt();
+    }
+
     public void askForUserAction(){
         System.out.println("원하시는 작업을 선택해주세요: ");
         System.out.println("1. 좌석 예약");
         System.out.println("2. 좌석 변경");
         System.out.println("3. 좌석 이용 종료");
         System.out.println("4. 로그아웃");
-        // TODO: 다른 작업 추가
     }
 
     // TODO: input validation
@@ -108,6 +117,10 @@ public class StudyCafeView {
             System.out.println(e.getMessage());
             return inputSeatAmount();
         }
+    }
+
+    public void wrongInput(){
+        System.out.println("잘못된 입력입니다.");
     }
 
     public void leaveComment(){
