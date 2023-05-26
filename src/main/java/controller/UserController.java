@@ -2,6 +2,7 @@ package controller;
 
 import model.User;
 import model.UserRole;
+import model.Users;
 import view.UserView;
 
 public class UserController {
@@ -16,7 +17,8 @@ public class UserController {
     public User login(){
         userView.askForName();
         String name = userView.inputName();
-        return new User(name, UserRole.BASIC);
+        User user = Users.getUserByName(name);
+        return user;
     }
 
     public User register() {

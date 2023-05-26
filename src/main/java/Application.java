@@ -9,14 +9,15 @@ public class Application {
     public static void main(String[] args) {
         UserController userController = new UserController();
         StudyCafeController studyCafeController = new StudyCafeController();
+        User user = new User("guest", null);
         while (true) {
             initialAction = userController.inputAction();
             switch(initialAction){
                 case 1:
-                    userController.login();
+                    user = userController.login();
                     break;
                 case 2:
-                    userController.register();
+                    user = userController.register();
                     break;
                 case 3:
                     userController.exit();
@@ -25,7 +26,6 @@ public class Application {
                     System.out.println("잘못된 입력입니다.");
                     continue;
             }
-            User user = userController.register();
             if(user.isAdmin()){
                 studyCafeController.adminAction(user);
                 continue;
