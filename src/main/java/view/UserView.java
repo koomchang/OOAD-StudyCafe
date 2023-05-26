@@ -10,12 +10,35 @@ public class UserView {
 
     private final Scanner sc = new Scanner(System.in);
 
+    public void askForAction(){
+        System.out.println("원하시는 작업을 선택해주세요. (1: 로그인, 2: 회원가입, 3: 종료)");
+    }
+
+    public void loginComment(){
+        System.out.println("로그인을 진행합니다.");
+    }
+
+    public void registerComment(){
+        System.out.println("회원가입을 진행합니다.");
+    }
+
     public void askForName() {
         System.out.println("환영합니다! 본인의 이름을 입력해주세요.");
     }
 
     public void askForRole() {
         System.out.println("본인의 역할을 입력해주세요. (1: 스터디카페 관리자, 2: 스터디카페 손님)");
+    }
+
+    public int inputAction(){
+        try{
+            String userInput = sc.nextLine();
+            validateInputNumeric(userInput);
+            return Integer.parseInt(userInput);
+        } catch(UserRoleException e){
+            System.out.println(e.getMessage());
+            return inputAction();
+        }
     }
 
     public void printUserInfo(User user) {
