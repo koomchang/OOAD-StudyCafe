@@ -1,14 +1,14 @@
 package controller;
 
 import exception.SeatReservationException;
-import model.StudyCafe;
-import model.StudyCafes;
-import model.User;
+import model.*;
+import view.ReviewView;
 import view.StudyCafeView;
 
 public class StudyCafeController {
 
     private final StudyCafeView studyCafeView = new StudyCafeView();
+    private final ReviewView reviewView = new ReviewView();
     private StudyCafe studyCafe;
 
     public void adminAction(User user) {
@@ -83,8 +83,24 @@ public class StudyCafeController {
                 case 3:
                     studyCafe.leave(user);
                     studyCafeView.leaveComment();
+                    reviewView.askForWriteReview();
+                    int reviewAction = reviewView.inputAction();
+                    switch (reviewAction){
+                        case 1:
+                            reviewView.askForContent();
+                            String content = reviewView.inputReview();
+                            Review review = new Review(user, content);
+                            Reviews.addReview(review);
+                            continue;
+                        case 2:
+                            continue;
+                    }
                     break;
                 case 4:
+                    reviewView.checkReview();
+                    reviewView.showReviewList();
+                    continue;
+                case 5:
                     user.logout();
                     return;
                 default:

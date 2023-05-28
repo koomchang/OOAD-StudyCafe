@@ -37,6 +37,7 @@ public class UserController {
         return user;
     }
 
+
     public void exit() {
     	System.exit(0);
     }

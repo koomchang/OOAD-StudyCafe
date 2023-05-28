@@ -110,7 +110,8 @@ public class StudyCafeView {
         System.out.println("1. 좌석 예약");
         System.out.println("2. 좌석 변경");
         System.out.println("3. 좌석 이용 종료");
-        System.out.println("4. 로그아웃");
+        System.out.println("4. 리뷰 보기");
+        System.out.println("5. 로그아웃");
     }
 
     public int inputUserAction(){
