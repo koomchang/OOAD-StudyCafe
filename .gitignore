@@ -20,6 +20,7 @@ build/
 *.iml
 *.ipr
 out/
+bin/
 
 .DS_Store
 ### NetBeans ###
