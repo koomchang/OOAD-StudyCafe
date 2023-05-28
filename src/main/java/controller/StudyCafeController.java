@@ -6,7 +6,6 @@ import view.ReviewView;
 import view.StudyCafeView;
 
 public class StudyCafeController {
-
     private final StudyCafeView studyCafeView = new StudyCafeView();
     private final ReviewView reviewView = new ReviewView();
     private StudyCafe studyCafe;
@@ -89,7 +88,7 @@ public class StudyCafeController {
                         case 1:
                             reviewView.askForContent();
                             String content = reviewView.inputReview();
-                            Review review = new Review(user, content);
+                            Review review = new Review(studyCafe, user, content);
                             Reviews.addReview(review);
                             continue;
                         case 2:
@@ -98,7 +97,7 @@ public class StudyCafeController {
                     break;
                 case 4:
                     reviewView.checkReview();
-                    reviewView.showReviewList();
+                    reviewView.showReviewList(studyCafe);
                     continue;
                 case 5:
                     user.logout();

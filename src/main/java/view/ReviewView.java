@@ -5,6 +5,7 @@ import exception.StudyCafeNameException;
 import exception.UserRoleException;
 import model.Review;
 import model.Reviews;
+import model.StudyCafe;
 import model.StudyCafes;
 
 import java.util.Scanner;
@@ -44,11 +45,11 @@ public class ReviewView {
         }
     }
 
-    public void showReviewList() {
+    public void showReviewList(StudyCafe studyCafe) {
         if(Reviews.reviewIsEmpty()) {
             System.out.println("작성된 리뷰가 없습니다.\n");
         }else {
-            Reviews.showReivews();
+            Reviews.showReviews(studyCafe);
         }
     }
 
