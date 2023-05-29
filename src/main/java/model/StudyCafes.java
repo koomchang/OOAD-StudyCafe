@@ -1,7 +1,5 @@
 package model;
 
-import exception.StudyCafeNameException;
-
 import java.util.ArrayList;
 
 public class StudyCafes {
@@ -23,5 +21,9 @@ public class StudyCafes {
                 .filter(studyCafe -> studyCafe.getName().equals(name))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public static boolean isEmpty() {
+        return studyCafes.isEmpty();
     }
 }

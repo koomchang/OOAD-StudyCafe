@@ -1,13 +1,10 @@
 package view;
 
 import exception.SeatNumberException;
+import exception.StudyCafeException;
 import exception.StudyCafeNameException;
-import exception.UserRoleException;
-import model.StudyCafe;
-import model.StudyCafes;
-
 import java.util.Scanner;
-
+import model.StudyCafe;
 import model.StudyCafes;
 
 public class StudyCafeView {
@@ -27,11 +24,11 @@ public class StudyCafeView {
     }
 
     public String inputName() {//관리자가 새로운 카페 등록시 받는 Input
-        try{
+        try {
             String name = sc.nextLine();
             validateName(name);
             return name;
-        } catch(StudyCafeNameException e){
+        } catch (StudyCafeNameException e) {
             System.out.println(e.getMessage());
             return inputName();
         }
@@ -47,65 +44,65 @@ public class StudyCafeView {
     }
 
     public String inputCafeName() {//일반 유저가 카페 예약시 받는 input
-        try{
+        try {
             String name = sc.nextLine();
             validateCafeName(name);
             return name;
-        } catch(StudyCafeNameException e){
+        } catch (StudyCafeNameException e) {
             System.out.println(e.getMessage());
             return inputCafeName();
         }
     }
 
     public int inputSeatAmount() {
-        try{
+        try {
             String userInput = sc.nextLine();
             validateSeatAmount(userInput);
             return Integer.parseInt(userInput);
-        }catch (SeatNumberException e){
+        } catch (SeatNumberException e) {
             System.out.println(e.getMessage());
             return inputSeatAmount();
         }
     }
 
 
-    public void showSeatList(StudyCafe studyCafe){
+    public void showSeatList(StudyCafe studyCafe) {
         studyCafe.showSeats();
     }
 
-    public void askForAdminAction(){
+    public void askForAdminAction() {
         System.out.println("원하시는 작업을 선택해주세요: ");
         System.out.println("1. 스터디카페 등록");
         System.out.println("2. 로그아웃");
     }
 
-    public int inputAction(){
-        try{
+    public int inputAction() {
+        try {
             String userInput = sc.nextLine();
             validateInputNumeric(userInput);
             return Integer.parseInt(userInput);
-        } catch(SeatNumberException e){
+        } catch (SeatNumberException e) {
             System.out.println(e.getMessage());
             return inputAction();
         }
     }
 
-    public int inputAdminAction(){
+    public int inputAdminAction() {
         return inputAction();
     }
 
-    public void askForInitialUserAction(){
+    public void askForInitialUserAction() {
         System.out.println("원하시는 작업을 선택해주세요: ");
         System.out.println("1. 스터디카페 목록 보기");
         System.out.println("2. 로그아웃");
     }
 
 
-    public int inputInitialUserAction(){
+    public int inputInitialUserAction() {
         return inputAction();
     }
 
-    public void askForUserAction(){
+    public void askForUserAction() {
         System.out.println("원하시는 작업을 선택해주세요: ");
         System.out.println("1. 좌석 예약");
         System.out.println("2. 좌석 변경");
@@ -114,53 +111,59 @@ public class StudyCafeView {
         System.out.println("5. 로그아웃");
     }
 
-    public int inputUserAction(){
+    public int inputUserAction() {
         return inputAction();
     }
 
-    public int inputSeatNumber(){
-        try{
+    public int inputSeatNumber() {
+        try {
             System.out.println("원하시는 좌석 번호를 입력해주세요.");
             String userInput = sc.nextLine();
             validateSeatNumber(userInput);
             return Integer.parseInt(userInput);
-        }catch (SeatNumberException e){
+        } catch (SeatNumberException e) {
             System.out.println(e.getMessage());
             return inputSeatAmount();
         }
     }
 
-    public void wrongInput(){
+    public void wrongInput() {
         System.out.println("잘못된 입력입니다.");
     }
 
-    public void leaveComment(){
+    public void leaveComment() {
         System.out.println("\n좌석 이용을 종료하셨습니다.\n");
     }
 
-    public void changeSeatComment(){
+    public void changeSeatComment() {
         System.out.println("\n좌석을 변경하셨습니다.\n");
     }
 
     //StudyCafe name validation
-    public void validateName(String name){//관리자가 새로운 카페 등록시 Input validate
+    public void validateName(String name) {//관리자가 새로운 카페 등록시 Input validate
         validateExist(name);
         validateAlreadyExist(name);
     }
 
-    public void validateCafeName(String name){//일반 유저가 카페 예약시 input
+    public void validateCafeName(String name) {//일반 유저가 카페 예약시 input
         validateExist(name);
     }
 
-    public void validateExist(String name){
-        if(name.isEmpty()){
+    public void validateExist(String name) {
+        if (name.isEmpty()) {
             throw new StudyCafeNameException("스터디카페 이름은 공백일 수 없습니다.");
         }
     }
 
-    public void validateAlreadyExist(String name){
-        if(StudyCafes.getStudyCafe(name)!=null){
+    public void validateAlreadyExist(String name) {
+        if (StudyCafes.getStudyCafe(name) != null) {
             throw new StudyCafeNameException("이미 존재하는 카페 이름입니다.");
+        }
+    }
+
+    public void validateIsStudyCafeEmpty() {
+        if (StudyCafes.isEmpty()) {
+            throw new StudyCafeException("등록된 스터디카페가 없습니다.");
         }
     }
 
@@ -169,7 +172,7 @@ public class StudyCafeView {
         validateInputNumeric(userInput);
     }
 
-    public void validateSeatNumber(String userInput){
+    public void validateSeatNumber(String userInput) {
         validateInputNumeric(userInput);
     }
 

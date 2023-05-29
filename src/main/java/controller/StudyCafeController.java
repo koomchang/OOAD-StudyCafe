@@ -1,11 +1,18 @@
 package controller;
 
 import exception.SeatReservationException;
-import model.*;
+import exception.StudyCafeException;
+import model.Review;
+import model.Reviews;
+import model.StudyCafe;
+import model.StudyCafes;
+import model.User;
 import view.ReviewView;
 import view.StudyCafeView;
 
+
 public class StudyCafeController {
+
     private final StudyCafeView studyCafeView = new StudyCafeView();
     private final ReviewView reviewView = new ReviewView();
     private StudyCafe studyCafe;
@@ -34,14 +41,20 @@ public class StudyCafeController {
         }
     }
 
-    public void userAction(User user){
+    public void userAction(User user) {
         studyCafeView.start();
-        while(true){
+        while (true) {
             studyCafeView.askForInitialUserAction();
             int initialUserAction = studyCafeView.inputInitialUserAction();
-            switch(initialUserAction){
+            switch (initialUserAction) {
                 case 1:
-                    studyCafeView.showCafeList();
+                    try {
+                        studyCafeView.validateIsStudyCafeEmpty();
+                        studyCafeView.showCafeList();
+                    } catch (StudyCafeException e) {
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
                     break;
                 case 2:
                     user.logout();
@@ -52,28 +65,28 @@ public class StudyCafeController {
             }
             String cafeName = studyCafeView.inputCafeName();
             studyCafe = StudyCafes.getStudyCafe(cafeName);
-            if(studyCafe == null){
+            if (studyCafe == null) {
                 System.out.println("해당 이름의 스터디카페가 존재하지 않습니다.");
                 continue;
             }
 
             studyCafeView.askForUserAction();
             int userAction = studyCafeView.inputUserAction();
-            switch(userAction){
+            switch (userAction) {
                 case 1:
                     studyCafeView.showSeatList(studyCafe);
-                    try{
+                    try {
                         studyCafe.reserve(studyCafeView.inputSeatNumber(), user);
-                    } catch(SeatReservationException e){
+                    } catch (SeatReservationException e) {
                         System.out.println(e.getMessage());
                         continue;
                     }
                     break;
                 case 2:
                     studyCafeView.showSeatList(studyCafe);
-                    try{
+                    try {
                         studyCafe.changeSeat(studyCafeView.inputSeatNumber(), user);
-                    } catch(SeatReservationException e){
+                    } catch (SeatReservationException e) {
                         System.out.println(e.getMessage());
                         continue;
                     }
@@ -84,7 +97,7 @@ public class StudyCafeController {
                     studyCafeView.leaveComment();
                     reviewView.askForWriteReview();
                     int reviewAction = reviewView.inputAction();
-                    switch (reviewAction){
+                    switch (reviewAction) {
                         case 1:
                             reviewView.askForContent();
                             String content = reviewView.inputReview();
@@ -107,7 +120,5 @@ public class StudyCafeController {
                     break;
             }
         }
-
     }
-
 }
