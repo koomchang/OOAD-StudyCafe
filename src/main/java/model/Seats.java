@@ -49,7 +49,14 @@ public class Seats {
         closingSeat.removeSeatFromUser(user);
     }
 
-    public boolean isSeatEmpty(int seatNumber){
+    public boolean isSeatEmpty(int seatNumber) {
         return getSeatBySeatNumber(seatNumber).isEmpty();
+    }
+
+    public void validateifUserHasSeat(User user) {
+        if (seats.stream()
+                .anyMatch(seat -> seat.getUser() != null && seat.getUser().equals(user))) {
+            throw new SeatReservationException("좌석은 한 자리만 예약 가능합니다.");
+        }
     }
 }

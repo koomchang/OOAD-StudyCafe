@@ -26,7 +26,7 @@ public class Seat {
         return empty;
     }
 
-    public void showSeat(){
+    public void showSeat() {
         System.out.println("자리 번호: " + this.seatNumber + (this.empty ? " - 사용가능" : " - 사용중"));
     }
 
